@@ -1,0 +1,54 @@
+// ================= MOBILE MENU =================
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
+
+// ================= SKILL BAR ANIMATION =================
+const skillBars = document.querySelectorAll(".skill-progress");
+
+function showSkills() {
+    skillBars.forEach(bar => {
+        const width = bar.getAttribute("data-width");
+        bar.style.width = width;
+    });
+}
+
+window.addEventListener("scroll", () => {
+    const skillsSection = document.getElementById("skills");
+    const position = skillsSection.getBoundingClientRect().top;
+
+    if (position < window.innerHeight - 100) {
+        showSkills();
+    }
+});
+
+// ================= FORM VALIDATION =================
+const form = document.getElementById("contactForm");
+const message = document.getElementById("formMessage");
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const text = document.getElementById("message").value.trim();
+
+    if (!name || !email || !text) {
+        message.style.color = "red";
+        message.textContent = "Please fill all fields.";
+        return;
+    }
+
+    if (!email.includes("@")) {
+        message.style.color = "red";
+        message.textContent = "Enter a valid email.";
+        return;
+    }
+
+    message.style.color = "green";
+    message.textContent = "Message sent successfully!";
+    form.reset();
+});
